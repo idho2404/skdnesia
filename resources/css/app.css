@@ -1,12 +1,213 @@
-@import 'tailwindcss';
+/* resources/css/app.css - Tailwind v4 with Dark Mode */
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source "../**/*.blade.php";
-@source "../**/*.js";
-@source "../**/*.vue";
+@import "tailwindcss";
+@import "./flip.css";
+
+/* ========================================
+   TAILWIND V4 CONFIGURATION
+   ======================================== */
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Custom Colors - Dark Theme (Default) */
+    --color-maranatha-dark: #162e29;
+    --color-maranatha-card: #1e3a34;
+    --color-maranatha-light: #eaf5f2;
+    
+    /* Oren Colors (Dark Mode) */
+    --color-oren-card: #1e3a34;
+    --color-oren-light: #f97316;
+    --color-oren-hover: #ea580c;
+    --color-oren-glow: rgba(249, 115, 22, 0.5);
+    
+    /* Hijau Colors (Light Mode) */
+    --color-hijau-light: #10b981;
+    --color-hijau-hover: #059669;
+    --color-hijau-glow: rgba(16, 185, 129, 0.5);
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+/* Smooth Transitions for Theme Toggle */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Remove transition on interactive elements for better performance */
+button, 
+input, 
+textarea, 
+select {
+    transition-property: background-color, border-color, color, box-shadow, transform;
+}
+
+/* Custom focus ring - Remove default outline */
+*:focus {
+    outline: none;
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-200 dark:bg-gray-950;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 hover:bg-gray-500 dark:bg-oren-light dark:hover:bg-oren-hover rounded;
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #f97316 #0a0a0a;
+}
+
+html:not(.dark) * {
+    scrollbar-color: #9ca3af #e5e7eb;
+}
+
+/* ========================================
+   SMOOTH SCROLL BEHAVIOR
+   ======================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   THEME MODE SETUP
+   ======================================== */
+
+/* Light Mode Color Scheme */
+html:not(.dark) {
+    color-scheme: light;
+}
+
+/* Dark Mode Color Scheme */
+html.dark {
+    color-scheme: dark;
+}
+
+/* Prevent flash of wrong theme */
+html:not(.dark) body {
+    @apply bg-white text-gray-900;
+}
+
+html.dark body {
+    @apply bg-gray-900 text-gray-100;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Glass Effect */
+.glass-effect {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+}
+
+html.dark .glass-effect {
+    @apply bg-gray-800/30 backdrop-blur-lg border border-gray-700/30;
+}
+
+/* Gradient Text */
+.gradient-text {
+    @apply bg-gradient-to-r from-hijau-light to-hijau-hover 
+    dark:from-oren-light dark:to-oren-hover 
+    bg-clip-text text-transparent;
+}
+
+/* Card Shadow */
+.card-shadow {
+    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Skip to main content link */
+.skip-link {
+    @apply absolute top-0 left-0 
+    bg-hijau-light dark:bg-oren-light 
+    text-white px-4 py-2 rounded
+    -translate-y-full focus:translate-y-0
+    transition-transform duration-200 z-50;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    body {
+        @apply bg-white text-black;
+    }
+    
+    /* Hide non-essential elements */
+    nav, footer, button, .no-print {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN HELPERS
+   ======================================== */
+
+/* Container with max-width */
+.container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Safe area for mobile notches */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* GPU acceleration for transforms */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

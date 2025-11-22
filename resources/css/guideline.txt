@@ -1,0 +1,7 @@
+Elemen	Dark Mode (Malam/Default)	Light Mode (Siang)
+Background	Hijau Tua Gelap (#162e29)	Putih Tulang / Hijau Sangat Muda (#F0FDF4)
+Card Container	Hijau Medium (#1e3a34)	Putih Bersih (#FFFFFF) dengan Shadow Hijau tipis
+Teks Utama	Putih	Hijau Tua (#162e29)
+Teks Aksen (Link)	Orange Terang (#FB923C)	Orange Gelap (#EA580C)
+Tombol (Primary)	Orange Vibrant (#F97316)	Orange Vibrant (#F97316)
+Input Focus	Glow Orange	Border Orange
